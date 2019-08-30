@@ -620,7 +620,10 @@ class Object(six.with_metaclass(ObjectMetaclass, ParseResource)):
                 }
             }
         self.__class__.PUT(self._absolute_url, **payload)
-        del self.__dict__[key]
+        try:
+            del self.__dict__[key]
+        except KeyError:
+            pass
 
     def removeRelation(self, key, className, objectsId):
         self.manageRelation('RemoveRelation', key, className, objectsId)
